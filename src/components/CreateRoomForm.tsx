@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {TextField, Button, Grid, makeStyles} from '@material-ui/core';
+import {useAppThemeContext} from "../contexts";
 
 const useStyles = makeStyles((theme) => ({
     textField: {
@@ -24,6 +25,8 @@ const CreateRoomForm = () => {
         // Aqui você pode fazer a requisição para criar a sala
     };
 
+    const { toggleTheme } = useAppThemeContext()
+
 
     const classes = useStyles();
     return (
@@ -33,7 +36,7 @@ const CreateRoomForm = () => {
                     direction="column"
                     alignItems="center"
                     justifyContent="center"
-                    style={{ minHeight: '80vh' }}>
+                    style={{ minHeight: '100vh' }}>
                 <Grid item xs={12}>
                     <TextField
                         label="Nome da sala"
@@ -47,7 +50,7 @@ const CreateRoomForm = () => {
                         }}
                     />
                     <Grid container justifyContent="center">
-                        <Button type="submit" variant="contained" color="primary">
+                        <Button type="submit" variant="contained" color="primary" onClick={toggleTheme}>
                             Criar sala
                         </Button>
                     </Grid>
