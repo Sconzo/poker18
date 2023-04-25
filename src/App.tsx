@@ -2,19 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter} from "react-router-dom";
 import {AppRoutes} from "./routes/AppRoutes";
-import { ThemeProvider } from '@material-ui/core/styles';
-import {LightTheme} from "./shared/themes";
+import {AppThemeProvider} from "./contexts";
 
 const App: React.FC = () => {
     return (
-        <ThemeProvider theme={LightTheme}>
+        <AppThemeProvider>
             <BrowserRouter>
                 <AppRoutes/>
                 <div>
                     {/*<Hello name="SPFC" />*/}
                 </div>
             </BrowserRouter>
-        </ThemeProvider>
+        </AppThemeProvider>
     );
 };
 
