@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {TextField, Button, Grid, makeStyles} from '@material-ui/core';
 import {useAppThemeContext} from "../contexts";
+import {Box, FormHelperText, Input, InputLabel, MenuItem, Select} from "@mui/material";
+import {FormControl} from '@mui/material';
+import {System} from "../utils/enviroment/System";
+import coffee from "../images/coffee.png"
 
 const useStyles = makeStyles((theme) => ({
     textField: {
-        width: '90%',
+        width: '100%',
         marginLeft: 'auto',
         marginRight: 'auto',
+        marginBottom: 15,
         paddingBottom: 0,
         marginTop: 0,
         fontWeight: 500,
@@ -14,49 +19,104 @@ const useStyles = makeStyles((theme) => ({
     },
     input: {
         color: 'white'
-    }
+    },
+    margin_bottom_40: {marginBottom: 40}
 }));
+
+const possibleSystems = [
+    {
+        value: System.BASIC,
+        label: (
+            <>
+                Padrão (1, 2, 4, 8, 16,   <img src={coffee} alt="Coffee" style={{ width: "20px", height: "20px", paddingBottom:"7px", paddingLeft:"3px" }}/>)
+            </>
+        ),
+    },
+    {
+        value: System.FIBONACCI,
+        label: (
+            <>
+                Fibonacci (0, 1, 2, 3, 5, 8, 13, 21, 34, 55, <img src={coffee} alt="Coffee" style={{ width: "20px", height: "20px", paddingBottom:"7px", paddingLeft:"3px" }}/>)
+            </>
+        ),
+    },
+    {
+        value: System.CUSTOM,
+        label: "Criar novo sistema"
+    }
+
+];
+
+const initialFormData = Object.freeze({
+    roomName: "",
+    roomSystem: ""
+});
 
 const CreateRoomForm = () => {
     const [roomName, setRoomName] = useState('');
+    const [votingSystem, setVotingSystem] = useState('');
+    const [formData, updateFormData] = useState(initialFormData);
 
-    const handleSubmit = (event : React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        // Aqui você pode fazer a requisição para criar a sala
+    const handleSubmit = (e: any) => {
+        e.preventDefault();
+        console.log(formData)
     };
 
-    const { toggleTheme } = useAppThemeContext()
+    const {toggleTheme} = useAppThemeContext()
 
+    const handleChangeName = (e: any) => {
+        updateFormData({
+            ...formData,
+            [e.target.name]: e.target.value.trim(),
+        });
+    };
+
+    const handleChangeSystem = (e: any) => {
+        updateFormData({
+            ...formData,
+            [e.target.name]: e.target.value.trim(),
+        });
+    };
 
     const classes = useStyles();
     return (
-        <form onSubmit={handleSubmit}>
-            <Grid   container
-                    spacing={2}
-                    direction="column"
-                    alignItems="center"
-                    justifyContent="center"
-                    style={{ minHeight: '100vh' }}>
-                <Grid item xs={12}>
+        <div>
+            <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                minHeight="100vh"
+            >
+
+                <FormControl >
                     <TextField
-                        label="Nome da sala"
-                        variant="outlined"
-                        fullWidth
-                        value={roomName}
-                        onChange={(event) => setRoomName(event.target.value)}
-                        margin="normal"
-                        InputProps={{
-                            style: { borderColor: 'red' }
-                        }}
+                        id="outlined-basic"
+                        label="Nome da Sala"
+                        variant="filled"
+                        className={classes.textField}
+                        onChange={handleChangeName}
+                        name="roomName"
                     />
-                    <Grid container justifyContent="center">
-                        <Button type="submit" variant="contained" color="primary" onClick={toggleTheme}>
-                            Criar sala
-                        </Button>
-                    </Grid>
-                </Grid>
-            </Grid>
-        </form>
+                    <TextField
+                        select
+                        label="Select"
+                        helperText="Selecione o sistema de votação"
+                        className={classes.margin_bottom_40}
+                        onChange={handleChangeSystem}
+                        name="roomSystem"
+                    >
+                        {possibleSystems.map((option) => (
+                            <MenuItem key={option.value} value={option.value}>
+                                {option.label}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                    <Button variant="contained" color="primary" onClick={($event) => handleSubmit($event)}>Criar</Button>
+
+                </FormControl>
+
+            </Box>
+        </div>
     );
 };
 
