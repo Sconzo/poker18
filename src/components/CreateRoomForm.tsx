@@ -5,6 +5,7 @@ import {Box, FormHelperText, Input, InputLabel, Select} from "@mui/material";
 import {FormControl} from '@mui/material';
 import {System} from "../utils/enviroment/System";
 import coffee from "../images/coffee.png"
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     textField: {
@@ -65,7 +66,12 @@ const CreateRoomForm = () => {
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
+        routeChange();
         console.log(formData)
+    };
+    let navigate = useNavigate();
+    const routeChange = () => {
+        navigate("/poker");
     };
 
     const {toggleTheme} = useAppThemeContext()
