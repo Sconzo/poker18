@@ -38,6 +38,7 @@ interface HeaderProps {
 }
 interface DeckProps {
     room: RoomInterface;
+    spectator : boolean
 }
 const Deck = (props : DeckProps) => {
     const classes = useStyles();
@@ -54,7 +55,9 @@ const Deck = (props : DeckProps) => {
 
     let cards = props.room.roomSystem.values;
 
-
+    if(props.spectator){
+        return  null;
+    }
     return (
         <Box className={classes.root}>
             {cards.map((card, index) => (
