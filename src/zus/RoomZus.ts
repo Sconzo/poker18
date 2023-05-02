@@ -4,16 +4,21 @@ import {RoomInterface} from "../interfaces/RoomInterface";
 
 type CurrentRoom = {
     room : RoomInterface,
-    changeSession:(session:RoomInterface) => void,
+    changeRoom:(session:RoomInterface) => void,
 }
 
 const useRoom = create<CurrentRoom>((set) => ({
     room:{
-        name: "",
-        system: "",
+        roomName: "",
+        roomSystem: {
+            id : 0,
+            name: "",
+            values: [],
+            coffee: false
+        }
     },
 
-    changeSession:(roomIncome : RoomInterface)=>{
+    changeRoom:(roomIncome : RoomInterface)=>{
         set(state => ({room : roomIncome}))
     },
 }))

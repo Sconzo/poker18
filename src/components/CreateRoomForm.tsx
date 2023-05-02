@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
-import {TextField, Button, Grid, makeStyles, MenuItem} from '@material-ui/core';
+import {Button, makeStyles, MenuItem, TextField} from '@material-ui/core';
 import {useAppThemeContext} from "../contexts";
-import {Box, FormHelperText, Input, InputLabel, Select} from "@mui/material";
-import {FormControl} from '@mui/material';
-import {System} from "../utils/enviroment/System";
+import {Box, FormControl} from "@mui/material";
+import {Basic, Custom, Fibonacci, Systems} from "../utils/enviroment/System";
+// @ts-ignore
 import coffee from "../images/coffee.png"
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+import useRoom from "../zus/RoomZus";
+import {RoomInterface} from "../interfaces/RoomInterface";
 
 const useStyles = makeStyles((theme) => ({
     textField: {
@@ -31,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 const possibleSystems = [
     {
-        value: System.BASIC,
+        value: Basic.id,
         label: (
             <>
                 Padrão (1, 2, 4, 8, 16, <img src={coffee} alt="Coffee" style={{ width: "20px", height: "20px", paddingBottom:"7px", paddingLeft:"3px" }}/>)
@@ -39,7 +41,7 @@ const possibleSystems = [
         ),
     },
     {
-        value: System.FIBONACCI,
+        value: Fibonacci.id,
         label: (
             <>
                 Fibonacci (0, 1, 2, 3, 5, 8, 13, 21, 34, 55, <img src={coffee} alt="Coffee" style={{ width: "20px", height: "20px", paddingBottom:"7px", paddingLeft:"3px" }}/>)
@@ -47,25 +49,33 @@ const possibleSystems = [
         ),
     },
     {
-        value: System.CUSTOM,
+        value: Custom.id,
         label: "Criar novo sistema"
     }
 
 ];
 
-const initialFormData = Object.freeze({
+const initialFormData : RoomInterface = {
     roomName: "",
-    roomSystem: ""
-});
+    roomSystem: {
+        id : 0,
+        name: "",
+        values: [],
+        coffee: false
+    },
+};
 
 const CreateRoomForm = () => {
     const [roomName, setRoomName] = useState('');
     const [votingSystem, setVotingSystem] = useState('');
     const [formData, updateFormData] = useState(initialFormData);
-    const [selectedValue, setSelectedValue] = useState('');
+    const {toggleTheme} = useAppThemeContext()
 
+
+    const changeRoom = useRoom((state) => state.changeRoom);
     const handleSubmit = (e: any) => {
         e.preventDefault();
+        changeRoom(formData);
         routeChange();
         console.log(formData)
     };
@@ -74,7 +84,6 @@ const CreateRoomForm = () => {
         navigate("/poker");
     };
 
-    const {toggleTheme} = useAppThemeContext()
 
     const handleChangeName = (e: any) => {
         updateFormData({
@@ -84,10 +93,10 @@ const CreateRoomForm = () => {
     };
 
     const handleChangeSystem = (e: any) => {
-        setSelectedValue(e.target.value);
+        const system = Systems.filter(sys => sys.id == e.target.value)
         updateFormData({
             ...formData,
-            [e.target.name]: e.target.value.trim(),
+            [e.target.name]: system[0],
         });
     };
 

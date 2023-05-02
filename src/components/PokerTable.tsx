@@ -1,10 +1,11 @@
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
+import {Button} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     table: {
-        backgroundColor: theme.palette.secondary.dark,
+        backgroundColor: theme.palette.secondary.light,
         borderRadius: theme.shape.borderRadius,
         height: "20vh",
         width: "40vw",
@@ -21,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
         height: "3rem",
         backgroundColor: "#FFFFFF",
         borderRadius: theme.shape.borderRadius,
+    },
+    button:{
+        backgroundColor: theme.palette.secondary.main,
     },
     player1: {
         top: "calc(50% - 1.5rem)",
@@ -43,9 +47,14 @@ const useStyles = makeStyles((theme) => ({
 const PokerTable = () => {
     const classes = useStyles();
 
+    const cardsReveal = () => {
+
+    }
+
     return (
         <Grid container direction="column" alignItems="center">
             <Box className={classes.table}>
+                <Button onClick={() => cardsReveal()} className={classes.button}>Revelar</Button>
                 <Box className={classes.player + " " + classes.player1} />
                 <Box className={classes.player + " " + classes.player2} />
                 <Box className={classes.player + " " + classes.player3} />

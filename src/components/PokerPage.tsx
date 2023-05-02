@@ -1,8 +1,9 @@
 import React from 'react';
-import { Grid, Typography, makeStyles } from '@material-ui/core';
+import {Grid, makeStyles} from '@material-ui/core';
 import Header from "./Header";
 import PokerTable from "./PokerTable";
 import Deck from "./Deck";
+import useRoom from "../zus/RoomZus";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -40,18 +41,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const PokerPage = () => {
+
+    const room = useRoom((state) => state.room);
+
+
     const classes = useStyles();
 
     return (
             <Grid  direction="column" className={classes.root}>
                 <Grid  className={classes.header}>
-                    {<Header userName="Poly" roomName="SALA"/>}
+                    {<Header userName="Poly" roomName={room.roomName}/>}
                 </Grid>
                 <Grid  className={classes.table}>
                     {<PokerTable/>}
                 </Grid>
                 <Grid  className={classes.pokerCards}>
-                    {<Deck/>}
+                    {<Deck room={room}/>}
                 </Grid>
             </Grid>
     );

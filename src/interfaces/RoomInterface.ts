@@ -1,4 +1,6 @@
+import {SystemInterface} from "./SystemInterface";
+
 export interface RoomInterface {
-    name: string;
-    system: string;
+    roomName: string;
+    roomSystem: SystemInterface;
 }
