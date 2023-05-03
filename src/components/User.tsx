@@ -89,7 +89,7 @@ const User = () => {
                     <FormControlLabel
                         value="end"
                         control={<Switch checked={checked} onChange={handleSwitch}
-                                         color="primary" />}
+                                         color="secondary" />}
                         label="Espectador"
                         labelPlacement="end"
                         className={classes.textField}
