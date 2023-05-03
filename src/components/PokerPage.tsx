@@ -4,6 +4,7 @@ import Header from "./Header";
 import PokerTable from "./PokerTable";
 import Deck from "./Deck";
 import useRoom from "../zus/RoomZus";
+import useUser from "../zus/UserZus";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -43,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
 const PokerPage = () => {
 
     const room = useRoom((state) => state.room);
+    const user = useUser((state) => state.user);
 
 
     const classes = useStyles();
@@ -50,13 +52,13 @@ const PokerPage = () => {
     return (
             <Grid  direction="column" className={classes.root}>
                 <Grid  className={classes.header}>
-                    {<Header userName="Poly" roomName={room.roomName}/>}
+                    {<Header userName={user.userName} roomName={room.roomName}/>}
                 </Grid>
                 <Grid  className={classes.table}>
                     {<PokerTable/>}
                 </Grid>
                 <Grid  className={classes.pokerCards}>
-                    {<Deck room={room}/>}
+                    {<Deck room={room} spectator={user.spectator}/>}
                 </Grid>
             </Grid>
     );

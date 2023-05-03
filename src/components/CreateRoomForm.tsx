@@ -77,11 +77,10 @@ const CreateRoomForm = () => {
         e.preventDefault();
         changeRoom(formData);
         routeChange();
-        console.log(formData)
     };
     let navigate = useNavigate();
     const routeChange = () => {
-        navigate("/poker");
+        navigate("/user");
     };
 
 
