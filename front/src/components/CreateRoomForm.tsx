@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Button, makeStyles, MenuItem, TextField} from '@material-ui/core';
 import {useAppThemeContext} from "../contexts";
 import {Box, FormControl} from "@mui/material";
-import {Basic, Custom, Fibonacci, Systems} from "../utils/System";
+import {Basic, Custom, Fibonacci, Systems, Truco} from "../utils/System";
 import {useNavigate} from "react-router-dom";
 import useRoom from "../zus/RoomZus";
 import {RoomInterface} from "../interfaces/RoomInterface";
@@ -45,6 +45,14 @@ const possibleSystems = [
         label: (
             <>
                 Fibonacci (0, 1, 2, 3, 5, 8, 13, 21, 34, 55, <img src={coffee} alt="Coffee" style={{ width: "20px", height: "20px", paddingBottom:"7px", paddingLeft:"3px" }}/>)
+            </>
+        ),
+    },
+    {
+        value: Truco.id,
+        label: (
+            <>
+                Truco (1, 3, 6, 9, 12, <img src={coffee} alt="Coffee" style={{ width: "20px", height: "20px", paddingBottom:"7px", paddingLeft:"3px" }}/>)
             </>
         ),
     },
