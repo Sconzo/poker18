@@ -44,7 +44,7 @@ const possibleSystems = [
         value: Fibonacci.id,
         label: (
             <>
-                Fibonacci (0, 1, 2, 3, 5, 8, 13, 21, 34, 55, <img src={coffee} alt="Coffee" style={{ width: "20px", height: "20px", paddingBottom:"7px", paddingLeft:"3px" }}/>)
+                Fibonacci (0, 1, 2, 3, 5, 8, 13, 21, 34, <img src={coffee} alt="Coffee" style={{ width: "20px", height: "20px", paddingBottom:"7px", paddingLeft:"3px" }}/>)
             </>
         ),
     },
